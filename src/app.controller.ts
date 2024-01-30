@@ -12,7 +12,7 @@ export class AppController {
     console.log(`${__dirname}`);
   }
   @Get('/qr')
-  @Render('inde')
+  @Render('index')
   getInde() {  
     return;
   }
