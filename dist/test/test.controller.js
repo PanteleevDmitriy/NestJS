@@ -16,8 +16,8 @@ let TestController = class TestController {
     constructor(appService) {
         this.appService = appService;
     }
-    getHello() {
-        return this.appService.getHello();
+    getText() {
+        return "Text_Test 1234567";
     }
     getData() {
         return this.appService.getData();
@@ -28,8 +28,8 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], TestController.prototype, "getHello", null);
+    __metadata("design:returntype", void 0)
+], TestController.prototype, "getText", null);
 __decorate([
     (0, common_1.Get)('/testing'),
     __metadata("design:type", Function),

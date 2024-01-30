@@ -6,15 +6,14 @@ const fs = require('fs')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
+  
   @Get()
-  handleRequest() {
-    console.log(`${__dirname}`);
+  getData() {
+    return this.appService.getHello()
   }
   @Get('/qr')
-  @Render('index')
-  getInde() {  
-    return;
+  @Render('qr_page')
+  getQrPage() {
+    return
   }
-  
 }

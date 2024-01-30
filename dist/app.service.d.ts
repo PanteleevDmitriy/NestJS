@@ -1,4 +1,7 @@
 export declare class AppService {
     getHello(): string;
-    getData(): string;
+    getData(): {
+        name: string;
+        value: string;
+    };
 }

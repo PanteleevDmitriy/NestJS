@@ -2,6 +2,6 @@ import { AppService } from './app.service';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
-    handleRequest(): void;
-    getInde(): void;
+    getData(): string;
+    getQrPage(): void;
 }

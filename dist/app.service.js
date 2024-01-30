@@ -13,7 +13,10 @@ let AppService = class AppService {
         return 'Hellou mafrendz!';
     }
     getData() {
-        return "<h1>QR-code generator</h1>";
+        return {
+            name: "string_html",
+            value: "<h1>QR-code generator</h1>"
+        };
     }
 };
 exports.AppService = AppService;

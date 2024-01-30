@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
+  getHello() {
     return 'Hellou mafrendz!';
   }
-  getData(): string {
-    return "<h1>QR-code generator</h1>"
+  getData() {
+    return {
+      name: "string_html",
+      value: "<h1>QR-code generator</h1>"}
   }
 }
