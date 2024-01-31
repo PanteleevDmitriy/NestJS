@@ -7,7 +7,7 @@ const path_1 = require("path");
 const helmet = require("fastify-helmet");
 const pointOfView = require("point-of-view");
 const handlebars = require("handlebars");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_fastify_1.FastifyAdapter());
     app.register(helmet);

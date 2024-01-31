@@ -6,7 +6,7 @@ import * as helmet from 'fastify-helmet';
 import * as pointOfView from 'point-of-view';
 import * as handlebars from 'handlebars';
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,7 +14,6 @@ async function bootstrap() {
     new FastifyAdapter(),
   )
   app.register(helmet);
-
   app.useStaticAssets({ root: join(__dirname, '..', 'public') });
   app.register(pointOfView, {
     engine: {
