@@ -1,4 +1,3 @@
 node_modules
-.env
-.idea
-.vscode
+.production.env
+.development.env

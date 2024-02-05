@@ -21,7 +21,7 @@ async function bootstrap() {
     },
     templates: 'views',
   });
-  await app.listen(PORT, () => {
+  await app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server has been started on http://localhost:${PORT}`)
 });
 }
