@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import * as helmet from 'fastify-helmet';
 import * as pointOfView from 'point-of-view';
@@ -21,6 +22,18 @@ async function bootstrap() {
     },
     templates: 'views',
   });
+
+  const swagger_options = new DocumentBuilder()
+  .setTitle('NestJS test API')
+  .setDescription('API description test text')
+  .setVersion('1.0')
+  .addTag('users') // теги для группировки эндпоинтов в Swagger
+  .addTag('others')
+  .build()
+
+  const document = SwaggerModule.createDocument(app, swagger_options)
+  SwaggerModule.setup('/swagger_doc', app, document)
+  
   await app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server has been started on http://localhost:${PORT}`)
 });

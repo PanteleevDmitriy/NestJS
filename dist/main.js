@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
 const platform_fastify_1 = require("@nestjs/platform-fastify");
+const swagger_1 = require("@nestjs/swagger");
 const path_1 = require("path");
 const helmet = require("fastify-helmet");
 const pointOfView = require("point-of-view");
@@ -18,6 +19,15 @@ async function bootstrap() {
         },
         templates: 'views',
     });
+    const swagger_options = new swagger_1.DocumentBuilder()
+        .setTitle('NestJS test API')
+        .setDescription('API description test text')
+        .setVersion('1.0')
+        .addTag('users')
+        .addTag('others')
+        .build();
+    const document = swagger_1.SwaggerModule.createDocument(app, swagger_options);
+    swagger_1.SwaggerModule.setup('/swagger_doc', app, document);
     await app.listen(PORT, '0.0.0.0', () => {
         console.log(`Server has been started on http://localhost:${PORT}`);
     });
