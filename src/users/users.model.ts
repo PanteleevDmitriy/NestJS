@@ -29,7 +29,15 @@ export class User extends Model<User, UserCreateAttributs> {
     @Column({type: DataType.BOOLEAN, defaultValue: false}) 
     banned: boolean;
 
-    @ApiProperty({ description: 'user_ban_status_reason', example: 'unmaner' })
+    @ApiProperty({ description: 'user_ban_reason', example: 'unmaner' })
     @Column({type: DataType.STRING, allowNull: true}) 
     banReason: string;
 }
+
+
+
+/*
+@ApiProperty({ description: 'user_phone_number', example: '88005553535' })
+    @Column({type: DataType.STRING, unique: true, allowNull: false}) 
+    phone_number: string;
+*/

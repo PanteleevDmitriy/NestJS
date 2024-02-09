@@ -27,7 +27,8 @@ async function bootstrap() {
   .setTitle('NestJS test API')
   .setDescription('API description test text')
   .setVersion('1.0')
-  .addTag('users') // теги для группировки эндпоинтов в Swagger
+  .addTag('users')
+  .addTag('authorisation')
   .addTag('others')
   .build()
 

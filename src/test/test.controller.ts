@@ -1,31 +1,30 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, UseGuards } from '@nestjs/common';
 import { AppService } from '../app.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtAdminGuard } from 'src/auth/jwt-admin.guard';
 
 @ApiTags('others') 
 @Controller('test')
 export class TestController {
     constructor(private readonly appService: AppService) {}
 
-  @Get()
-  @ApiOperation({ summary: 'вывод тестовой строки' })
-  @ApiResponse({ status: 200 })
-  getText() {
-    return "Text_Test 1234567";
-  }
+    @ApiOperation({ summary: 'вывод тестовой строки' })
+    @Get()
+    getText() {
+        return "Text_Test 1234567";
+    }
 
-  @Get('/qr')
-  @ApiOperation({ summary: 'QR-генератор' })
-  @ApiResponse({ status: 200 })
-  @Render('qr_page')
-  getQrPage() {
-    return
-  }
+    @ApiOperation({ summary: 'вывод тестового объекта' })
+    @Get('/testing')
+    getData() {
+        return this.appService.getData()
+    }
 
-  @Get('/testing')
-  @ApiOperation({ summary: 'вывод тестового объекта' })
-  @ApiResponse({ status: 200 })
-  getData() {
-    return this.appService.getData()
-  }
+    @ApiOperation({ summary: 'QR-генератор' })
+    @Render('qr_page')
+    @Get('/qr')
+    getQrPage() {
+        return
+    }
+
 }
