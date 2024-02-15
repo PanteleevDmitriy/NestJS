@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@fastify/cookie": "^9.3.1",
     "@fastify/static": "^6.12.0",
     "@fastify/swagger": "^8.14.0",
     "@fastify/view": "^8.2.0",
@@ -36,6 +37,8 @@
     "class-validator": "^0.14.1",
     "cross-env": "^7.0.3",
     "fast-json-stringify": "^1",
+    "fastify-cookie": "^5.7.0",
+    "fastify-cors": "^6.1.0",
     "fastify-helmet": "^3.0.2",
     "fs": "^0.0.1-security",
     "handlebars": "^4.7.8",

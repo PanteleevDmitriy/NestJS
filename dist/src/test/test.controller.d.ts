@@ -7,5 +7,4 @@ export declare class TestController {
         name: string;
         value: string;
     };
-    getQrPage(): void;
 }

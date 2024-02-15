@@ -23,9 +23,6 @@ let TestController = class TestController {
     getData() {
         return this.appService.getData();
     }
-    getQrPage() {
-        return;
-    }
 };
 exports.TestController = TestController;
 __decorate([
@@ -42,14 +39,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], TestController.prototype, "getData", null);
-__decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'QR-генератор' }),
-    (0, common_1.Render)('qr_page'),
-    (0, common_1.Get)('/qr'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], TestController.prototype, "getQrPage", null);
 exports.TestController = TestController = __decorate([
     (0, swagger_1.ApiTags)('others'),
     (0, common_1.Controller)('test'),

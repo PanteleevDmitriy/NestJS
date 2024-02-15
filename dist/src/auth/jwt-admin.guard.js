@@ -32,7 +32,7 @@ let JwtAdminGuard = class JwtAdminGuard {
             }
             throw new common_1.UnauthorizedException({ message: 'У вас нет прав администратора!' });
         }
-        catch (e) {
+        catch (error) {
             throw new common_1.UnauthorizedException({ message: 'У вас нет прав администратора!' });
         }
         ;

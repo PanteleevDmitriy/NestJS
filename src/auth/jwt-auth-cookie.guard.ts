@@ -5,29 +5,29 @@ import { FastifyRequest } from "fastify";
 import { User } from "src/users/users.model";
 
 @Injectable()
-export class JwtAdminGuard implements CanActivate {
+export class JwtAuthCookieGuard implements CanActivate {
 
     constructor(private jwtService: JwtService) {}
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         
         try {
-            const req = context.switchToHttp().getRequest<FastifyRequest>();
-            const authHeader = req.headers.authorization;
-            if (!authHeader || !authHeader.startsWith('Bearer')) {
+            const req = context.switchToHttp().getRequest<FastifyRequest>()
+            const jwtToken = req.cookies.jwt
+            console.log(req.cookies)
+            if (!jwtToken || !jwtToken.startsWith('Bearer')) {
                 throw new UnauthorizedException({message: 'Вы не авторизованы!'});
-            };
-            const token = authHeader.split(" ")[1];
+            }
+            const token = jwtToken.split(" ")[1];
             const decoded_user: User = this.jwtService.verify(token);
-            const result = (decoded_user.status == 'admin')
-            if (result){
+            if (decoded_user){
                 return true
             }
-            throw new UnauthorizedException({message: 'У вас нет прав администратора!'});
+            throw new UnauthorizedException({message: 'Вы не авторизованы!'});
         }catch (error) {
-                throw new UnauthorizedException({message: 'У вас нет прав администратора!'});
-        };
+            throw new UnauthorizedException({message: 'Вы не авторизованы!'})
+        }
 
-    };
+    }
 
-};
+}

@@ -27,7 +27,7 @@ export class UsersController {
         return this.userService.getUserById(id);
     }
 
-    @ApiOperation({ summary: 'make admin', description: 'только для авторизованных пользователей!'  })
+    @ApiOperation({ summary: 'make admin', description: 'только для авторизованных пользователей!' })
     @UseGuards(JwtAuthGuard)
     @UsePipes(ValidationPipe)
     @Patch('/admin')

@@ -1,7 +1,6 @@
 import { Controller, Get, Render, UseGuards } from '@nestjs/common';
 import { AppService } from '../app.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAdminGuard } from 'src/auth/jwt-admin.guard';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('others') 
 @Controller('test')
@@ -18,13 +17,6 @@ export class TestController {
     @Get('/testing')
     getData() {
         return this.appService.getData()
-    }
-
-    @ApiOperation({ summary: 'QR-генератор' })
-    @Render('qr_page')
-    @Get('/qr')
-    getQrPage() {
-        return
     }
 
 }

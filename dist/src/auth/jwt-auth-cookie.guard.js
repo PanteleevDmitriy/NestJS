@@ -9,21 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JwtAuthGuard = void 0;
+exports.JwtAuthCookieGuard = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-let JwtAuthGuard = class JwtAuthGuard {
+let JwtAuthCookieGuard = class JwtAuthCookieGuard {
     constructor(jwtService) {
         this.jwtService = jwtService;
     }
     canActivate(context) {
         try {
             const req = context.switchToHttp().getRequest();
-            const authHeader = req.headers.authorization;
-            if (!authHeader || !authHeader.startsWith('Bearer')) {
+            const jwtToken = req.cookies.jwt;
+            console.log(req.cookies);
+            if (!jwtToken || !jwtToken.startsWith('Bearer')) {
                 throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!' });
             }
-            const token = authHeader.split(" ")[1];
+            const token = jwtToken.split(" ")[1];
             const decoded_user = this.jwtService.verify(token);
             if (decoded_user) {
                 return true;
@@ -35,9 +36,9 @@ let JwtAuthGuard = class JwtAuthGuard {
         }
     }
 };
-exports.JwtAuthGuard = JwtAuthGuard;
-exports.JwtAuthGuard = JwtAuthGuard = __decorate([
+exports.JwtAuthCookieGuard = JwtAuthCookieGuard;
+exports.JwtAuthCookieGuard = JwtAuthCookieGuard = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [jwt_1.JwtService])
-], JwtAuthGuard);
-//# sourceMappingURL=jwt-auth.guard.js.map
+], JwtAuthCookieGuard);
+//# sourceMappingURL=jwt-auth-cookie.guard.js.map

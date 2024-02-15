@@ -19,10 +19,12 @@ let AuthService = class AuthService {
         this.userService = userService;
         this.jwtService = jwtService;
     }
-    async login(userDto) {
+    async login(userDto, res) {
         const user = await this.validateUser(userDto);
         if (user) {
-            return this.generateToken(user);
+            const jwtToken = await this.generateToken(user);
+            res.setCookie('jwt', ('Bearer ' + jwtToken.token));
+            return await this.generateToken(user);
         }
         throw new common_1.UnauthorizedException({ message: 'Неправильный email или пароль!' });
     }
@@ -50,6 +52,40 @@ let AuthService = class AuthService {
             }
         }
         return;
+    }
+    async whoMeFromHeader(authorizationHeader) {
+        try {
+            if (!authorizationHeader || !authorizationHeader.startsWith('Bearer')) {
+                throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!' });
+            }
+            const token = authorizationHeader.split(" ")[1];
+            const decoded_user = this.jwtService.verify(token);
+            if (decoded_user) {
+                return decoded_user;
+            }
+        }
+        catch (error) {
+            throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!!' });
+        }
+        throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!!!' });
+    }
+    async whoMeFromCookies(req) {
+        try {
+            const jwtToken = req.cookies.jwt;
+            console.log(req.cookies);
+            if (!jwtToken || !jwtToken.startsWith('Bearer')) {
+                throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!' });
+            }
+            const token = jwtToken.split(" ")[1];
+            const decoded_user = this.jwtService.verify(token);
+            if (decoded_user) {
+                return decoded_user;
+            }
+        }
+        catch (error) {
+            throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!!' });
+        }
+        throw new common_1.UnauthorizedException({ message: 'Вы не авторизованы!!!' });
     }
 };
 exports.AuthService = AuthService;

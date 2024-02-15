@@ -4,10 +4,10 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 const path = require('path')
 const fs = require('fs')
  
-@Controller()
+@Controller('api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  
+
   @Get()
   @ApiOperation({ summary: 'приветствие' })
   @ApiResponse({ status: 200 })

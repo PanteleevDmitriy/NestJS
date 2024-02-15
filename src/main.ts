@@ -6,6 +6,9 @@ import { join } from 'path';
 import * as helmet from 'fastify-helmet';
 import * as pointOfView from 'point-of-view';
 import * as handlebars from 'handlebars';
+import fastifyCookie from '@fastify/cookie';
+const cors = require('@fastify/cors');
+
 
 const PORT = process.env.PORT || 3000
 
@@ -14,27 +17,36 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   )
-  app.register(helmet);
   app.useStaticAssets({ root: join(__dirname, '..', 'public') });
+  app.register(helmet);
   app.register(pointOfView, {
     engine: {
       handlebars,
     },
     templates: 'views',
   });
-
+  
   const swagger_options = new DocumentBuilder()
   .setTitle('NestJS test API')
-  .setDescription('API description test text')
+  .setDescription('https://github.com/PanteleevDmitriy/NestJS.git')
   .setVersion('1.0')
   .addTag('users')
-  .addTag('authorisation')
+  .addTag('auth')
   .addTag('others')
   .build()
 
   const document = SwaggerModule.createDocument(app, swagger_options)
   SwaggerModule.setup('/swagger_doc', app, document)
-  
+
+  await app.register(fastifyCookie, {
+    secret: 'my-secret-cookie-qwerty'
+  });
+  app.register(cors, {
+    origin: 'http://localhost:3000', // Разрешить запросы от всех источников
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Если куки или аутентификация
+    optionsSuccessStatus: 204, // Некоторые браузеры ожидают статус 204
+  });
   await app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server has been started on http://localhost:${PORT}`)
 });
